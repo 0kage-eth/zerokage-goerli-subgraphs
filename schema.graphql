@@ -1,0 +1,123 @@
+type ExampleEntity @entity {
+  id: ID!
+  count: BigInt!
+  owner: Bytes! # address
+  spender: Bytes! # address
+}
+
+# DEX Contract
+
+type AddLiquidity @entity {
+  id: ID!
+  user: Bytes! # address
+  liquidityMinted: BigInt! # uint256
+  ethAdded: BigInt! # uint256
+  zeroKageAdded: BigInt! # uint256
+}
+
+type EthToZeroKage @entity {
+  id: ID!
+  user: Bytes! # address
+  ethDeposited: BigInt! # uint256
+  zeroKageWithdrawn: BigInt! # uint256
+}
+
+type RemoveLiquidity @entity {
+  id: ID!
+  user: Bytes! # address
+  liquidityBurned: BigInt! # uint256
+  ethRemoved: BigInt! # uint256
+  zeroKageWithdrawn: BigInt! # uint256
+}
+
+type ZeroKageToEth @entity {
+  id: ID!
+  user: Bytes! # address
+  zeroKageDeposited: BigInt! # uint256
+  ethWithdrawn: BigInt! # uint256
+}
+
+# StakingRewards Contract
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type RewardDistributed @entity {
+  id: ID!
+  staker: Bytes! # address
+  reward: BigInt! # uint256
+}
+
+type Stake @entity {
+  id: ID!
+  staker: Bytes! # address
+  amount: BigInt! # uint256
+}
+
+type Unstake @entity {
+  id: ID!
+  staker: Bytes! # address
+  amount: BigInt! # uint256
+}
+
+# TokenVesting Contract
+type CreateSchedule @entity {
+  id: ID!
+  beneficiary: Bytes! # address
+  identifier: BigInt! # uint32
+  vested: BigInt! # uint256
+}
+
+type TokenVestingOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type ReleaseSchedule @entity {
+  id: ID!
+  beneficiary: Bytes! # address
+  identifier: BigInt! # uint32
+  releaser: Bytes! # address
+  released: BigInt! # uint256
+}
+
+type Released @entity {
+  id: ID!
+  beneficiary: Bytes! # address
+  releaseAmount: BigInt! # uint256
+}
+
+type RevokeSchedule @entity {
+  id: ID!
+  beneficiary: Bytes! # address
+  identifier: BigInt! # uint32
+  unvested: BigInt! # uint256
+  released: BigInt! # uint256
+}
+
+type Revoked @entity {
+  id: ID!
+  beneficiary: Bytes! # address
+  vestedAmount: BigInt! # uint256
+  unreleasedAmount: BigInt! # uint256
+}
+
+# Rewards Kage Contract
+
+type r0KageApproval @entity {
+  id: ID!
+  owner: Bytes! # address
+  spender: Bytes! # address
+  value: BigInt! # uint256
+}
+
+type r0KageTransfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  value: BigInt! # uint256
+}

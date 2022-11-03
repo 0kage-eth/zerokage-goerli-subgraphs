@@ -1,0 +1,138 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ZeroKage
+    network: goerli
+    source:
+      address: "0x7b6AB22C716cBb0Ad71Bb5202055402B627c486a"
+      abi: ZeroKage
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - Transfer
+      abis:
+        - name: ZeroKage
+          file: ./abis/ZeroKage.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/zero-kage.ts
+  - kind: ethereum
+    name: DEX
+    network: goerli
+    source:
+      address: "0x18E086d0B6E26Fef553A3F5Af6C300799055ACd2"
+      abi: DEX
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - AddLiquidity
+        - EthToZeroKage
+        - RemoveLiquidity
+        - ZeroKageToEth
+      abis:
+        - name: DEX
+          file: ./abis/DEX.json
+      eventHandlers:
+        - event: AddLiquidity(address,uint256,uint256,uint256)
+          handler: handleAddLiquidity
+        - event: EthToZeroKage(address,uint256,uint256)
+          handler: handleEthToZeroKage
+        - event: RemoveLiquidity(address,uint256,uint256,uint256)
+          handler: handleRemoveLiquidity
+        - event: ZeroKageToEth(address,uint256,uint256)
+          handler: handleZeroKageToEth
+      file: ./src/dex.ts
+  - kind: ethereum
+    name: StakingRewards
+    network: goerli
+    source:
+      address: "0x1D72cecf5e9F9940D3a5C0C61BaA2d79B7E74d23"
+      abi: StakingRewards
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RewardDistributed
+        - Stake
+        - Unstake
+      abis:
+        - name: StakingRewards
+          file: ./abis/StakingRewards.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RewardDistributed(address,uint256)
+          handler: handleRewardDistributed
+        - event: Stake(address,uint256)
+          handler: handleStake
+        - event: Unstake(address,uint256)
+          handler: handleUnstake
+      file: ./src/staking-rewards.ts
+  - kind: ethereum
+    name: TokenVesting
+    network: goerli
+    source:
+      address: "0x7ec777324AAA80C90550656552b2bA4B3d206030"
+      abi: TokenVesting
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - CreateSchedule
+        - TokenVestingOwnershipTransferred
+        - ReleaseSchedule
+        - Released
+        - RevokeSchedule
+        - Revoked
+      abis:
+        - name: TokenVesting
+          file: ./abis/TokenVesting.json
+      eventHandlers:
+        - event: CreateSchedule(address,uint32,uint256)
+          handler: handleCreateSchedule
+        - event: TokenVestingOwnershipTransferred(indexed address,indexed address)
+          handler: handleTokenVestingOwnershipTransferred
+        - event: ReleaseSchedule(address,uint32,address,uint256)
+          handler: handleReleaseSchedule
+        - event: Released(address,uint256)
+          handler: handleReleased
+        - event: RevokeSchedule(address,uint32,uint256,uint256)
+          handler: handleRevokeSchedule
+        - event: Revoked(address,uint256,uint256)
+          handler: handleRevoked
+      file: ./src/token-vesting.ts
+  - kind: ethereum
+    name: r0Kage
+    network: goerli
+    source:
+      address: "0x88DD0e5ce0996F07BE0C9001FA37d5321bAf52d0"
+      abi: r0Kage
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - r0KageApproval
+        - r0KageTransfer
+      abis:
+        - name: r0Kage
+          file: ./abis/r0Kage.json
+      eventHandlers:
+        - event: r0KageApproval(indexed address,indexed address,uint256)
+          handler: handler0KageApproval
+        - event: r0KageTransfer(indexed address,indexed address,uint256)
+          handler: handler0KageTransfer
+      file: ./src/r-0-kage.ts
